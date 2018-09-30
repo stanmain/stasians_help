@@ -1,0 +1,22 @@
+{% load comments %}
+
+<div class="card border-0 shadow-sm mb-4">
+  {% get_comment_count for subject as count %}
+  <div class="card-header">Отзывов: {{ count }}</div>
+  <ul class="list-group list-group-flush">
+    {% for comment in comment_list %}
+    <li class="list-group-item">
+      {% if comment.is_removed %}
+      Отзыв удалён.
+      {% else %}
+      <a name="c{{ comment.id }}"></a>
+      <div class="text-sm-left"><a class="text-muted" href="{% get_comment_permalink comment %}">#{{ forloop.counter }} {{ comment.submit_date }}</a></div>
+
+      <a class="card-link h5" href="{% url 'profiles' slug=comment.user %}">{{ comment.user }}</a>
+    
+      <div class="card-text">{{ comment.comment }}</div>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>

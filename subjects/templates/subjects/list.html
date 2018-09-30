@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Предметы{% endblock %}
+
+{% block caption %}Все предметы{% endblock %}
+
+{% block content %}
+{% for subject in subjects %}
+<a href="{{ subject.get_absolute_url }}" class="list-group-item-action">
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="clearfix">
+        <div class="card-text h5 float-left">{{ subject.name }}</div>
+        <div class="card-text float-right"><small class="text-muted">{{ subject.category.name }}</small></div>
+      </div>
+      <div class="clearfix">
+        <div class="card-text float-left">{{ subject.description }}</div>
+        <div class="card-text float-right"><small class="text-muted">от {{ subject.price }} грн</small>
+          <a class="btn btn-sm btn-success" href="{{ subject.get_create_url }}">Заказать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+{% endfor %}
+{% if page_obj.paginator.num_pages > 1 %}
+{% bootstrap_pagination page_obj %}
+{% endif %}
+{% endblock %}

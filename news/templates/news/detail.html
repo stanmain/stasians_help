@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block caption %}<a href="{% url 'news_list' %}">Новости</a> / {{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">{{ object.description }}</div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">{{ object.content }}</div>
+  </div>
+  <div class="card-footer">
+    <div class="card-text">{{ object.update }}</div>
+  </div>
+</div>
+{% endblock %}

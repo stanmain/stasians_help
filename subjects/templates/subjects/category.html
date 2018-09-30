@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block caption %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">{{ category.description }}</div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">{{ category.content }}</div>
+  </div>
+  <div class="card-footer">
+    <div class="card-text">Цена от {{ category.price }} грн.</div>
+  </div>
+</div>
+{% if subjects %}
+<div class="mb-4 h6 text-muted text-sm-center text-md-left">Список работ</div>
+{% endif %}
+{% for subject in subjects %}
+<a href="{{ subject.get_absolute_url }}" class="list-group-item-action">
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="clearfix">
+        <div class="card-text h5 float-left">{{ subject.name }}</div>
+        <div class="card-text float-right"><small class="text-muted">от {{ subject.price }} грн</small>
+          <a class="btn btn-sm btn-success" href="{{ subject.get_create_url }}">Заказать</a>
+        </div>
+      </div>
+      <div class="card-text">{{ subject.description }}</div>
+    </div>
+  </div>
+</a>
+{% endfor %}
+{% if page_obj.paginator.num_pages > 1 %}
+{% bootstrap_pagination page_obj %}
+{% endif %}
+{% endblock %}

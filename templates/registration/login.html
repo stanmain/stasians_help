@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block title %}Войти{% endblock %}
+
+{% block main %}
+
+<main>
+  <div class="mx-auto text-center">
+    {% if user.is_authenticated %}
+    <h1 class="h3 mb-3 font-weight-normal">Вы уже вошли.</h1>
+    <a href="{% url 'logout' %}">Выйти?</a>
+    {% else %}
+    {% bootstrap_form_errors form %}
+    <form action="{% url 'login' %}" method="post" class="mb-3">
+      {% csrf_token %}
+      <h1 class="h3 mb-3 font-weight-normal">Пожалуйста войдите</h1>
+      {% bootstrap_field form.username label_class='sr-only' %}
+      {% bootstrap_field form.password label_class='sr-only' %}
+      {% bootstrap_button 'Войти' button_type='submit' button_class='btn btn-lg btn-primary btn-block' %}
+      <input type="hidden" name="next" value="{{ next }}"> 
+    </form>
+    <a href="{% url 'registration' %}">Зарегистрироваться?</a>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="../static/css/registration.css">
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{{ object.username }}{% endblock %}
+
+{% block caption %}
+{% if object == user %}
+Мой профиль
+{% else %}
+Пользователь {{ object.username }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="clearfix">
+      <div class="card-title h5 float-left">{{ object.username }}</div>
+      {% if object == user %}
+      <div class="card-text float-right">
+        <a href="{% url 'user_edit' %}">Редактировать</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card-text">{{ object.get_full_name }}</div>
+    <div class="card-text">{{ object.email }}</div>
+    <div class="card-text">{{ object.last_login }}</div>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="clearfix">
+      <div class="card-title h5 float-left">Дополнительная информация</div>
+      {% if object == user %}
+      <div class="card-text float-right">
+        <a href="{% url 'profile_edit' %}">Редактировать</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card-text">{{ object.profile.bio }}</div>
+    <div class="card-text">{{ object.profile.location }}</div>
+    {% if object.profile.birth_date %}
+    <div class="card-text">{{ object.profile.birth_date }}</div>
+    {% endif %}
+  </div>
+</div>
+
+{% if orders or user.is_staff %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="h5 card-title float-left">Последние заказы</div>
+    {% if object == user %}
+    <a href="{% url 'order_list' %}" class="card-link float-right">Смотреть все</a>
+    {% endif %}
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for order in orders %}
+    <a href="{{ order.get_absolute_url }}" class="list-group-item list-group-item-action">{{ order.pubdate }} - {{ order.subject }}</a>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}

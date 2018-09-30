@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load comments %}
+
+{% block title %}Новый заказ{% endblock %}
+
+{% block caption %}
+Создать новый заказ
+{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">Предмет: {{ subject }}</div>
+  </div>
+  <div class="card-body">
+    {% bootstrap_form_errors form %}
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="user" value="{{ form.user.value }}">
+      <input type="hidden" name="subject" value="{{ form.subject.value }}">
+      {% bootstrap_field form.description %}
+      {% bootstrap_button 'Отправить' button_type='submit' button_class='btn btn-primary' %}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

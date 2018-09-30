@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load comments %}
+
+{% block title %}Main page{% endblock %}
+
+{% block caption %}
+Заказ #{{ order.id }}
+{% endblock %}
+
+{% block content %}
+{% if user == order.user %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">{{ order.subject }}</div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">{{ order.description }}</div>
+    <div class="card-text">Цена от {{ order.price }} грн.</div>
+  </div>
+  <div class="card-footer clearfix">
+    <div class="card-text float-left">Статус заказа: {{ order.get_status }}</div>
+    {% if order.can_canceled %}
+    <div class="float-right">
+      <a class="btn btn-sm btn-danger" href="{% url 'order_cancel' slug=order.id %}">Отменить</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if order.status == order.PREPAYMENT or order.status == order.PAYMENT %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">Оплата</div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">Получатель: 1234 1234 1234 1234</div>
+    <div class="card-text">Назначение (номер заказа): {{ order.id }}</div>
+    {% if order.status == order.PREPAYMENT %}
+    <div class="card-text">Предоплата, грн: {{ order.prepayment }}</div>
+    {% endif %}
+    {% if order.status == order.PAYMENT %}
+    <div class="card-text">Оплата, грн: {{ order.payment }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% if order.status == order.COMPLETED and order.solution %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">{{ order.update }}</div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">{{ order.solution }}</div>
+  </div>
+</div>
+{% endif %}
+
+{% render_comment_list for order %}
+{% render_comment_form for order %}
+
+{% else %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <div class="card-text">Информация недоступна</div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

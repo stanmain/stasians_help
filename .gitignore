@@ -1,0 +1,9 @@
+.vscode/
+__pycache__/
+*.pyc
+venv/
+uploads/
+*.db
+*/settings/development.py
+*/settings/production.py
+*/settings/test.py

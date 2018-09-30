@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load comments %}
+
+{% block title %}Main page{% endblock %}
+
+{% block caption %}
+<a href="{{ subject.category.get_absolute_url }}">{{ subject.category.name }}</a>
+/
+{{ subject.name }}
+{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header">
+    <div class="card-text">{{ subject.description }}</div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">{{ subject.content }}</div>
+  </div>
+  <div class="card-footer">
+    <div class="card-text">
+        <div class="card-text">
+          <a class="btn btn-success" href="{{ subject.get_create_url }}">Заказать</a>
+          Цена от {{ subject.price }} грн. 
+        </div>
+    </div>
+  </div>
+</div>
+
+{% render_comment_list for subject %}
+{% render_comment_form for subject %}
+
+{% endblock %}

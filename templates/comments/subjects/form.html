@@ -1,0 +1,27 @@
+{% load bootstrap4 %}
+{% load comments %}
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    {% if user.is_authenticated %}
+    <div class="card-title">Добавить отзыв:</div>
+    {% get_comment_form for subject as form %}
+    <form action="{% comment_form_target %}" method="POST">
+      {% csrf_token %}
+      {{ form.content_type }}
+      {{ form.object_pk }}
+      {{ form.timestamp }}
+      {{ form.security_hash }}
+    
+      {% bootstrap_field form.honeypot field_class='d-none' show_label=False %}
+      {% bootstrap_field form.comment show_label=False %}
+      <input type="hidden" name="next" value="{% url 'subjects_detail' slug=subject.id %}?page={{ page_num }}"/>
+      {% bootstrap_button 'Отправить' button_type="submit" button_class='btn-primary' %}
+    </form>
+    {% else %}
+    <div class="card-text">
+      <a href="{% url 'login' %}">Войдите</a> что бы оставить комментарий.
+    </div>
+    {% endif %}
+  </div>
+</div>

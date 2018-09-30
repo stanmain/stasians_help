@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block caption %}Мои заказы{% endblock %}
+
+{% block content %}
+{% for order in orders %}
+<a href="{{ order.get_absolute_url }}" class="list-group-item-action">
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="clearfix">
+        <div class="card-text h5 float-left">{{ order.subject }}</div>
+        <div class="card-text float-right"><small class="text-muted">{{ order.pubdate }} / {{ order.get_status }}</small></div>
+      </div>
+      <div class="card-text">{{ order.description }}</div>
+    </div>
+  </div>
+</a>
+{% endfor %}
+{% if page_obj.paginator.num_pages > 1 %}
+{% bootstrap_pagination page_obj %}
+{% endif %}
+{% endblock %}

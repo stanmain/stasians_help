@@ -1,0 +1,57 @@
+{% extends 'bootstrap4.html' %}
+
+{% block header %}
+<header class="mb-4 bg-white shadow-sm">
+  <div class="container d-flex flex-column flex-md-row align-items-center p-3">
+    <a href="/" class="my-0 mr-md-auto pl-md-0 font-weight-normal text-uppercase nav-link h2">Stasian`s help</a>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" href="{% url 'subjects_list' %}">Предметы</a>
+      <a class="p-2 text-dark" href="{% url 'news_list' %}">Новости</a>
+      <a class="p-2 text-dark" href="{% url 'payment' %}">Оплата</a>
+      <a class="p-2 text-dark" href="{% url 'contacts' %}">Контакты</a>
+      <a class="p-2 text-dark" href="{% url 'about' %}">О сайте</a>
+    </nav>
+    <nav class="btn-group">
+      {% if user.is_authenticated %}
+      {% if user.is_staff %}
+      <a class="btn btn-outline-warning" href="{% url 'admin:index' %}">Админ</a>
+      {% endif %}
+      <a class="btn btn-outline-secondary" href="{% url 'profile' %}">Профиль</a>
+      <a class="btn btn-outline-secondary" href="{% url 'order_list' %}">Заказы</a>
+      <a class="btn btn-outline-danger" href="{% url 'logout' %}">Выйти</a>
+      {% else %}
+      <a class="btn btn-outline-primary" href="{% url 'login' %}">Войти</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+{% endblock %}
+
+{% block main %}
+<main class="container">
+  <div class="mb-4 h4 text-muted text-sm-center text-md-left">{% block caption %}{% endblock %}</div>
+  <div class="row">
+    <!-- BLOCK CONTENT -->
+    <div class="col-sm-12 col-md-9">
+      {% block content %}{% endblock %}
+    </div>
+    <!-- ENDBLOCK CONTENT -->
+    <!-- BLOCK NAVBAR -->
+
+    {% include 'sidebar.html' %}
+    <!-- ENDBLOCK NAVBAR -->
+  </div>
+</main>
+{% endblock %}
+
+{% block footer %}
+<footer class="d-flex flex-column align-items-center mt-2 mb-4">
+  <div class="">Copyright © 2018 Stanislav Hnatiuk. All rights reserved.</div>
+  <nav class="">
+    <a class="p-1 text-dark" href="https://t.me/stanmain">Telegram</a>
+    <a class="p-1 text-dark" href="#">Facebook</a>
+    <a class="p-1 text-dark" href="#">LinedIn</a>
+    <a class="p-1 text-dark" href="https://github.com/stanmain">GitHub</a>
+  </nav>
+</footer>
+{% endblock %}

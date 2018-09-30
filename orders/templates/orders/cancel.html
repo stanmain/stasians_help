@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load comments %}
+
+{% block title %}Отмена заказа{% endblock %}
+
+{% block caption %}
+Отменить заказ
+{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    {% bootstrap_form_errors form %}
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="status" value="{{ form.status.value }}">
+      {% bootstrap_button 'Отменить' button_type='submit' button_class='btn btn-danger' %}
+      <a class="btn btn-primary" href="{% url 'order_detail' slug=order.id %}">Назад</a>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

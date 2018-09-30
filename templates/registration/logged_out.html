@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block title %}Выйти{% endblock %}
+
+{% block main %}
+<main>
+  <div class="mx-auto text-center">
+    <!-- <img class="mb-3 d-none d-md-block" src="{% static 'img/noimage.png' %}" alt="" width="250" height="250"> -->
+    <h1 class="h3 mb-3 font-weight-normal">Вы вышли.</h1>
+    <a class="btn" href="{% url 'login' %}">Войти снова?</a>
+  </div>
+</main>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="../static/css/registration.css">
+{% endblock %}

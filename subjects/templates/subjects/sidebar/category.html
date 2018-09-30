@@ -1,0 +1,15 @@
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Категории</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for category in categories %}
+    <!-- <li class="list-group-item"> -->
+      <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+    <!-- </li> -->
+    {% endfor %}
+    {% if other_category %}
+    <a href="{{ other_category.get_absolute_url }}" class="list-group-item list-group-item-action bg-card">{{ other_category.name }}</a>
+    {% endif %}
+  </ul>
+</div>

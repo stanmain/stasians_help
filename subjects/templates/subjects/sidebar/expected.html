@@ -1,0 +1,15 @@
+{% if expected_subjects %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Ожидается</h5>
+  </div>
+  <div class="list-group list-group-flush">
+    {% for subject in expected_subjects %}
+    <div class="list-group-item ">
+      <div class="card-text">{{ subject.name }}</div>
+      <div class="card-text text-muted">{{ subject.description }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

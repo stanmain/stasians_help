@@ -7,7 +7,7 @@ The project is designed to explore the capabilities of the Django framework and 
 
 [stasianshelp.herokuapp.com](https://stasianshelp.herokuapp.com/)
 
-[screenshot](screenshot.png)
+![screenshot](screenshot.png)
 
 
 ## Installing
